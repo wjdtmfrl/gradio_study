@@ -1,0 +1,20 @@
+!pip install -q tiktoken cohere
+# -q : 설치 과정 중 발생하는 메시지가 최소화됨
+# tiktoken : BPE 토크나이저 (BPE기법을 사용하여 텍스트를 토큰으로 분리)
+# cohere : 자연어 처리를 위한 AI 모델을 제공하는 서비스
+
+import subprocess
+# subprocess : Python 스크립트에서 새로운 프로세스를 생성하고, 그에 대한 입력, 출력, 오류 파이프를 관리하며, 실행 결과를 얻을 수 있게 해주는 모듈
+# 시스템 명령어를 실행하거나 다른 프로그램과 상호작용해야 할 때 매우 유용합니다.
+# 예를 들어, Python 스크립트 내에서 Linux의 ls 명령어를 실행하거나, 복잡한 외부 애플리케이션을 제어하는 등의 작업을 할 수 있습니다.
+
+subprocess.run(["python","-c", code], capture_output=True)
+# -c = Python 인터프리터에게 문자열로 된 코드를 실행하라고 지시
+#  code = 실행할 Python 코드를 포함하는 문자열
+# capture_output = 실행 결과의 표준 출력(standard output)과 표준 오류(standard error)를 캡쳐하도록 지시. 즉, 실행된 프로세스의 출력을 Python에서 사용할 수 있음.
+
+result = subprocess.run(["python","-c", code], capture_output=True)
+return_txt = result.stdout.decode("utf-8")
+# result = subprocess.run 함수의 실행 결과를 나타내는 객체. stdout, stderr, returncode 정보 포함.
+# result_txt = result.stdout의 내용을 문자열로 변환.
+# stdout 속성은 바이트열 형식으로 데이터를 저장하기 때문에, 이를 사람이 읽을 수 있는 텍스트 형식으로 변환하기 위해 UTF-8 인코딩을 사용하여 디코드.
