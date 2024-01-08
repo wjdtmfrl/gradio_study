@@ -1,0 +1,49 @@
+챗봇 실행 연습을 위한 연습 코드 실행
+
+import openai
+
+def main():
+    openai.api_key = "MY_API_KEY"
+
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo",
+        messages=[
+            {"role":"system","content":"You are a helpful assistant."},
+            {"role":"user","content":"Who is the first president of the United States?"},
+            {"role":"assistant","content":"George Washington is the first U.S. president."},
+            {"role":"user","content":"What about the second president?"},
+
+        ]
+    )
+
+    output_text = response["choices"][0]["message"]["content"]
+    print(output_text)
+
+main()
+
+-> APIRemovedInV1: 
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0
+- see the README at https://github.com/openai/openai-python for the API.
+
+에러 뜸 ㅜㅜ(첫번째 에러)
+
+해석) 사용하고 있는 OpenAI 라이브러리 버전에서 openai.ChatCompletion API가 더 이상 지원되지 않는 것으로 보입니다.
+이는 OpenAI 라이브러리가 업데이트되어 이전 버전의 API가 제거되거나 변경된 경우에 발생할 수 있습니다.
+
+APIRemovedInV1 오류는 사용하려는 API가 openai>=1.0.0 버전에서 제거되었음을 나타냅니다.
+-> 코드와 API 버전 충돌 문제.
+
+코드 업그레이드 or openAI 구버전 고정
+--> 구버전 고정!
+
+런타임 재시동(?) 후 openai==0.28 로 새로 install
+-> cohere, tiktoken 설치되어있어야 함.
+
+->!pip install -q cohere tiktoken openai==0.28 이대로 실행.
+
+두 번째 에러 - API 키 문제
+
+--> 변수 문제인가 싶어
+openai.api_key = "~~" 로 직접 설정해보니 잘 작동 됨.
+확인해보니 openai.api_key = "MY_API_KEY" 따옴표 표시로 문자열로 처리된 것!
+따옴표 빼고 처리하니 잘 작동 됨.
