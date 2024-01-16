@@ -1,0 +1,20 @@
+# gpt-3.5-turbo 형식에서 content 만 출력하고싶은데 에러가 나는 상황
+
+<기존 코드>
+completion = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "system", "content": "You are a kind consultant for a curtain company.Provide a concise response"},
+    {"role": "user", "content": "Tell me about the delivery period of the curtain."}
+  ]
+)
+
+print(completion.choices[0].message)
+
+> 위 출력 답변은 content, role, function_call, tool_calls 에 대한 정보 출력됨.
+메시지 내용만 출력하고싶으면 completion.choices[0].message의 content 사용해야하는데
+message['content'], message["content"] 둘 다 안 됨.
+
+> ChatCompletionMessage 객체는 직접적으로 subscriptable (대괄호로 접근 가능한)하지 않습니다.
+따라서 completion.choices[0].message.content 로 하면 content 만 출력 가능.
+
